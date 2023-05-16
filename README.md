@@ -33,7 +33,7 @@
 
 # 📖 School Library app <a name="about-project"></a>
 
-> School Library Ruby App.
+> School Library is an Ruby app that implemented the Object Oriented Programming paradigm.
 
 ## 🛠 Built With <a name="built-with"></a>
 
