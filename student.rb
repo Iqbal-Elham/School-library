@@ -6,7 +6,15 @@ class Student < Person
     @classroom = classroom
   end
 
+  attr_reader :classroom
+
   def play_hooky
     '¯(ツ)/¯'
   end
+
+  def classroom=(classroom)
+    @classroom = classroom
+    classroom.students << self
+  end
+
 end
