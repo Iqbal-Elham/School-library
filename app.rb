@@ -11,7 +11,7 @@ class App
     end
 
     def list_books 
-        puts @book.map { |book| "Title: \"#{book.title}\", Author \"#{book.author}\"" }
+        puts @books.map { |book| "Title: \"#{book.title}\", Author \"#{book.author}\"" }
     end
 
     def list_people 
@@ -29,7 +29,7 @@ class App
         when '1'
             print "Has parent permission? [Y/N]: "
             permission = gets.chomp.downcase
-            people << Student.new(age, name, (permission == y ? true : false ))
+            @people << Student.new(age, name, parent_permission: (permission == "y" ? true : false ))
         when '2'
             print "Specialization: "
             specialization = gets.chomp
@@ -43,17 +43,17 @@ class App
         title = gets.chomp
         print "Author: "
         author = gets.chomp
-        @book << Book.new(title, author)
+        @books << Book.new(title, author)
         puts "Book Created Successfully"
     end
 
     def create_rental
         puts "Select a book from the following list by number"
         @books.map.with_index { |book, idx| puts "#{idx}) Title: \"#{book.title}\", Author: #{book.author}"}
-        book_idx = gets.chomp 
+        book_idx = gets.chomp.to_i 
         puts "Select a person from the following list by number (not ID)"
         @people.map.with_index { |person, idx| puts "#{idx}) Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"}
-        person_idx = gets.chomp
+        person_idx = gets.chomp.to_i
         print "Date (YYYY/MM/DD): "
         date = gets.chomp
         @rentals << Rental.new(date, @books[book_idx], @people[person_idx])
@@ -62,8 +62,8 @@ class App
 
     def list_rentals
         print "ID of person: "
-        id = gets.chomp
+        person_id = gets.chomp.to_i
         puts "Rentals:"
-        puts (rentals.filter_map { |rental| "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == person_id })
+        puts (@rentals.filter_map { |rental| "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == person_id })
     end
 end
