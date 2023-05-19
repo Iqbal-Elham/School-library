@@ -1,3 +1,8 @@
+require './student'
+require './teacher'
+require './book'
+require './rental'
+
 class App 
     def initialize
         @people = []
@@ -12,5 +17,24 @@ class App
     def list_people 
         puts @people.map { |person| "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
     end
-    
+
+    def create_person 
+        print "Do you want to create a Student (1) or a Teacher (2)? [Input the number]: "
+        option = gets.chomp
+        print "Age: "
+        age = gets.chomp
+        print "Name: "
+        name = gets.chomp
+        case option
+        when '1'
+            print "Has parent permission? [Y/N]: "
+            permission = gets.chomp.downcase
+            people << Student.new(age, name, (permission == y ? true : false ))
+        when '2'
+            print "Specialization: "
+            specialization = gets.chomp
+            @people << Teacher.new(specialization, age, name)
+        end
+        puts "Person Created Successfully"
+    end
 end
